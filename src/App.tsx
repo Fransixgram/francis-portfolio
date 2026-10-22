@@ -1,41 +1,33 @@
-// Stage 1 foundation preview. This temporary page only proves that Vite, React,
-// TypeScript and the Tailwind theme colors work. Stage 2 replaces it with the
-// real header and hero.
+import Header from './components/Header'
+import Hero from './components/Hero'
 
-const swatches = [
-  { name: 'bg', className: 'bg-bg' },
-  { name: 'surface', className: 'bg-surface' },
-  { name: 'surface-2', className: 'bg-surface-2' },
-  { name: 'line', className: 'bg-line' },
-  { name: 'muted', className: 'bg-muted' },
-  { name: 'accent', className: 'bg-accent' },
+// TEMPORARY: empty anchors so the header links have somewhere to scroll to.
+// Each one is replaced by its real section in Stage 3 (About, Projects) and
+// Stage 4 (Experience, Tech Stack, Notes, Contact).
+const upcoming = [
+  { id: 'about', label: 'About', stage: 3 },
+  { id: 'projects', label: 'Projects', stage: 3 },
+  { id: 'experience', label: 'Experience', stage: 4 },
+  { id: 'tech-stack', label: 'Tech Stack', stage: 4 },
+  { id: 'notes', label: 'Engineering Notes', stage: 4 },
+  { id: 'contact', label: 'Contact', stage: 4 },
 ]
 
 export default function App() {
   return (
-    <main className="mx-auto flex min-h-screen max-w-3xl flex-col justify-center px-6 py-16">
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-        Stage 1 · Foundation
-      </p>
-      <h1 className="mt-3 text-4xl font-extrabold tracking-tight sm:text-5xl">
-        CHIDUBEM FRANCIS
-      </h1>
-      <p className="mt-3 text-lg text-muted">Full-stack Software Engineer</p>
-
-      <div className="mt-10 rounded-2xl border border-line bg-surface p-6">
-        <h2 className="text-sm font-semibold text-accent">Theme colors</h2>
-        <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-          {swatches.map((s) => (
-            <li key={s.name} className="flex items-center gap-3 text-sm">
-              <span className={`h-8 w-8 rounded-md border border-line ${s.className}`} />
-              {s.name}
-            </li>
-          ))}
-        </ul>
-        <p className="mt-6 text-sm text-muted">
-          The real header, hero and sections are added in the next stages.
-        </p>
-      </div>
-    </main>
+    <>
+      <Header />
+      <main>
+        <Hero />
+        {upcoming.map((s) => (
+          <section key={s.id} id={s.id} className="border-t border-line">
+            <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+              <h2 className="text-2xl font-bold tracking-tight">{s.label}</h2>
+              <p className="mt-2 text-sm text-muted">Coming in Stage {s.stage}.</p>
+            </div>
+          </section>
+        ))}
+      </main>
+    </>
   )
 }
