@@ -1,6 +1,6 @@
 import { Menu, Moon, Sun, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { navLinks, profile } from '../data/profile'
+import { headerCta, navLinks, profile } from '../data/profile'
 import { useTheme } from '../hooks/useTheme'
 
 export default function Header() {
@@ -18,47 +18,53 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-bg/85 backdrop-blur">
-      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
+      <div className="mx-auto flex h-12 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
         {/* Brand: initials badge + name */}
-        <a href="#top" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
-          <span className="grid h-8 w-8 place-items-center rounded-lg border border-accent/60 bg-accent-soft text-xs font-extrabold tracking-tight text-accent">
+        <a href="#top" className="flex items-center gap-2" onClick={() => setOpen(false)}>
+          <span className="grid h-7 w-7 place-items-center rounded-md border border-accent/60 bg-accent-soft text-[10px] font-extrabold tracking-tight text-accent">
             {profile.initials}
           </span>
-          <span className="text-sm font-semibold tracking-wide">{profile.name}</span>
+          <span className="text-[13px] font-semibold tracking-wide">{profile.name}</span>
         </a>
 
         {/* Desktop navigation (hidden on small screens) */}
-        <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
+        <nav aria-label="Primary" className="hidden items-center md:flex">
           {navLinks.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              className="rounded-md px-3 py-1.5 text-sm text-muted transition-colors hover:text-fg"
+              className="rounded-md px-2.5 py-1.5 text-[13px] text-muted transition-colors hover:text-fg"
             >
               {l.label}
             </a>
           ))}
         </nav>
 
-        {/* Controls: theme toggle + mobile menu button */}
+        {/* Right side: theme toggle, call-to-action, mobile menu button */}
         <div className="flex items-center gap-1.5">
           <button
             type="button"
             onClick={toggle}
             aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
-            className="grid h-9 w-9 place-items-center rounded-lg border border-line text-muted transition-colors hover:border-accent hover:text-fg"
+            className="grid h-8 w-8 place-items-center rounded-md border border-line text-muted transition-colors hover:border-accent hover:text-fg"
           >
-            {isDark ? <Sun size={17} /> : <Moon size={17} />}
+            {isDark ? <Sun size={15} /> : <Moon size={15} />}
           </button>
+          <a
+            href={headerCta.href}
+            className="hidden rounded-md bg-accent px-3.5 py-1.5 text-[13px] font-semibold text-accent-fg transition-opacity hover:opacity-90 sm:inline-block"
+          >
+            {headerCta.label}
+          </a>
           <button
             type="button"
             onClick={() => setOpen((o) => !o)}
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
             aria-controls="mobile-menu"
-            className="grid h-9 w-9 place-items-center rounded-lg border border-line text-muted transition-colors hover:border-accent hover:text-fg md:hidden"
+            className="grid h-8 w-8 place-items-center rounded-md border border-line text-muted transition-colors hover:border-accent hover:text-fg md:hidden"
           >
-            {open ? <X size={18} /> : <Menu size={18} />}
+            {open ? <X size={16} /> : <Menu size={16} />}
           </button>
         </div>
       </div>
@@ -78,6 +84,15 @@ export default function Header() {
                 </a>
               </li>
             ))}
+            <li className="pb-2 pt-1 sm:hidden">
+              <a
+                href={headerCta.href}
+                onClick={() => setOpen(false)}
+                className="block rounded-md bg-accent px-3 py-3 text-center text-sm font-semibold text-accent-fg"
+              >
+                {headerCta.label}
+              </a>
+            </li>
           </ul>
         </nav>
       )}
