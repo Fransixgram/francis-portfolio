@@ -64,15 +64,22 @@ export const about = {
   ],
 }
 
+// SHOW OR HIDE SECTIONS. Set one to false to remove that section and its menu
+// link, for example while you have nothing to put in it yet.
+export const sections = {
+  experience: true,
+  notes: true, // currently shows placeholder article cards
+}
+
 // NAVIGATION. "href" must match the id of a section on the page.
 export const navLinks = [
-  { label: 'About', href: '#about' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Tech Stack', href: '#tech-stack' },
-  { label: 'Notes', href: '#notes' },
-  { label: 'Contact', href: '#contact' },
-]
+  { label: 'About', href: '#about', show: true },
+  { label: 'Projects', href: '#projects', show: true },
+  { label: 'Experience', href: '#experience', show: sections.experience },
+  { label: 'Tech Stack', href: '#tech-stack', show: true },
+  { label: 'Notes', href: '#notes', show: sections.notes },
+  { label: 'Contact', href: '#contact', show: true },
+].filter((l) => l.show)
 
 // The button on the right of the header
-export const headerCta = { label: "Let's talk", href: '#contact' }
+export const headerCta = { label: 'Get in touch', href: '#contact' }

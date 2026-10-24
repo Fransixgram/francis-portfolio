@@ -1,86 +1,92 @@
 import { Mail, MapPin, Phone } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { contact } from '../data/contact'
-import { GithubIcon } from './icons'
 import Section from './Section'
+import { socials } from './socialLinks'
 
-type Row = { id: string; label: string; icon: ReactNode; value: string; href: string; empty: string }
+type Item = { text: string; href?: string }
+type Row = { id: string; label: string; icon: ReactNode; items: Item[]; empty: string }
 
 const rows: Row[] = [
   {
     id: 'email',
     label: 'Email',
     icon: <Mail size={16} />,
-    value: contact.email,
-    href: contact.email ? `mailto:${contact.email}` : '',
+    items: contact.email ? [{ text: contact.email, href: `mailto:${contact.email}` }] : [],
     empty: 'Add your email address',
   },
   {
     id: 'phone',
-    label: 'Phone',
+    label: contact.phones.length > 1 ? 'Phone numbers' : 'Phone',
     icon: <Phone size={16} />,
-    value: contact.phone,
-    href: contact.phone ? `tel:${contact.phone.replace(/\s+/g, '')}` : '',
+    items: contact.phones.map((p) => ({ text: p, href: `tel:${p.replace(/[^\d+]/g, '')}` })),
     empty: 'Add your phone number',
   },
   {
     id: 'location',
     label: 'Location',
     icon: <MapPin size={16} />,
-    value: contact.location,
-    href: '',
+    items: contact.location ? [{ text: contact.location }] : [],
     empty: 'Add your location',
-  },
-  {
-    id: 'linkedin',
-    label: 'LinkedIn',
-    icon: <span className="text-[11px] font-bold">in</span>,
-    value: contact.linkedin ? 'LinkedIn profile' : '',
-    href: contact.linkedin,
-    empty: 'Add your LinkedIn URL',
-  },
-  {
-    id: 'github',
-    label: 'GitHub',
-    icon: <GithubIcon className="h-4 w-4" />,
-    value: contact.github ? contact.github.replace(/^https?:\/\//, '') : '',
-    href: contact.github,
-    empty: 'Add your GitHub URL',
   },
 ]
 
 export default function Contact() {
-  const emailReady = Boolean(contact.email)
+  // The main button emails you. Until an email is set, it links to GitHub instead.
+  const primary = contact.email
+    ? { href: `mailto:${contact.email}`, label: contact.buttonLabel, external: false }
+    : contact.github
+      ? { href: contact.github, label: 'View my GitHub', external: true }
+      : null
+
   return (
     <Section id="contact" eyebrow="Contact" title="Get in touch">
       <div className="grid gap-8 rounded-2xl border border-line bg-surface p-6 sm:p-8 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
         <div>
           <h3 className="text-xl font-bold tracking-tight sm:text-2xl">{contact.heading}</h3>
           <p className="mt-3 max-w-md text-sm leading-relaxed text-muted">{contact.text}</p>
-          {emailReady ? (
+
+          {primary && (
             <a
-              href={`mailto:${contact.email}`}
-              className="mt-6 inline-block rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-accent-fg transition-opacity hover:opacity-90"
+              href={primary.href}
+              target={primary.external ? '_blank' : undefined}
+              rel={primary.external ? 'noopener noreferrer' : undefined}
+              className="mt-6 inline-block rounded-lg bg-accent-strong px-5 py-2.5 text-sm font-semibold text-accent-fg transition-opacity hover:opacity-90"
             >
-              {contact.buttonLabel}
+              {primary.label}
             </a>
-          ) : (
-            <button
-              type="button"
-              disabled
-              title="Add your email in src/data/contact.ts"
-              className="mt-6 cursor-not-allowed rounded-lg border border-dashed border-line px-5 py-2.5 text-sm font-semibold text-muted"
-            >
-              {contact.buttonLabel} (add email first)
-            </button>
+          )}
+
+          {socials.length > 0 && (
+            <ul className="mt-6 flex flex-wrap gap-2">
+              {socials.map((s) => (
+                <li key={s.id}>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    title={s.label}
+                    className="grid h-10 w-10 place-items-center rounded-lg border border-line text-muted transition-colors hover:border-accent hover:text-fg"
+                  >
+                    {s.icon}
+                  </a>
+                </li>
+              ))}
+            </ul>
           )}
         </div>
 
         <ul className="space-y-3">
           {rows.map((r) => {
-            const live = Boolean(r.value)
-            const inner = (
-              <>
+            const live = r.items.length > 0
+            return (
+              <li
+                key={r.id}
+                className={`flex items-center gap-3 rounded-lg border bg-bg/40 p-3 ${
+                  live ? 'border-line' : 'border-dashed border-line'
+                }`}
+              >
                 <span
                   className={`grid h-9 w-9 shrink-0 place-items-center rounded-lg border ${
                     live ? 'border-accent/50 text-accent' : 'border-line text-muted'
@@ -92,33 +98,26 @@ export default function Contact() {
                   <span className="block text-[11px] uppercase tracking-widest text-muted">
                     {r.label}
                   </span>
-                  <span
-                    className={`block truncate text-sm ${
-                      live ? 'font-medium' : 'italic text-muted/80'
-                    }`}
-                  >
-                    {live ? r.value : r.empty}
-                  </span>
+                  {live ? (
+                    r.items.map((it) =>
+                      it.href ? (
+                        <a
+                          key={it.text}
+                          href={it.href}
+                          className="block truncate text-sm font-medium hover:text-accent hover:underline"
+                        >
+                          {it.text}
+                        </a>
+                      ) : (
+                        <span key={it.text} className="block truncate text-sm font-medium">
+                          {it.text}
+                        </span>
+                      ),
+                    )
+                  ) : (
+                    <span className="block truncate text-sm italic text-muted">{r.empty}</span>
+                  )}
                 </span>
-              </>
-            )
-            const base = 'flex items-center gap-3 rounded-lg border bg-bg/40 p-3'
-            return (
-              <li key={r.id}>
-                {live && r.href ? (
-                  <a
-                    href={r.href}
-                    target={r.href.startsWith('http') ? '_blank' : undefined}
-                    rel="noopener noreferrer"
-                    className={`${base} border-line transition-colors hover:border-accent`}
-                  >
-                    {inner}
-                  </a>
-                ) : (
-                  <div className={`${base} ${live ? 'border-line' : 'border-dashed border-line'}`}>
-                    {inner}
-                  </div>
-                )}
               </li>
             )
           })}

@@ -97,7 +97,7 @@ export default function Hero() {
           <div className="mt-7 flex flex-wrap gap-3">
             <a
               href="#projects"
-              className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-accent-fg transition-opacity hover:opacity-90"
+              className="inline-flex items-center gap-2 rounded-lg bg-accent-strong px-5 py-2.5 text-sm font-semibold text-accent-fg transition-opacity hover:opacity-90"
             >
               View my work <ArrowRight size={16} />
             </a>

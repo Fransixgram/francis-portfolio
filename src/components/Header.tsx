@@ -21,7 +21,7 @@ export default function Header() {
       <div className="mx-auto flex h-12 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
         {/* Brand: initials badge + name */}
         <a href="#top" className="flex items-center gap-2" onClick={() => setOpen(false)}>
-          <span className="grid h-7 w-7 place-items-center rounded-md border border-accent/60 bg-accent-soft text-[10px] font-extrabold tracking-tight text-accent">
+          <span className="grid h-7 w-7 place-items-center rounded-md border border-accent/60 bg-accent-soft text-[10px] font-extrabold tracking-tight text-accent-text">
             {profile.initials}
           </span>
           <span className="text-[13px] font-semibold tracking-wide">{profile.name}</span>
@@ -52,7 +52,7 @@ export default function Header() {
           </button>
           <a
             href={headerCta.href}
-            className="hidden rounded-md bg-accent px-3.5 py-1.5 text-[13px] font-semibold text-accent-fg transition-opacity hover:opacity-90 sm:inline-block"
+            className="hidden rounded-md bg-accent-strong px-3.5 py-1.5 text-[13px] font-semibold text-accent-fg transition-opacity hover:opacity-90 sm:inline-block"
           >
             {headerCta.label}
           </a>
@@ -88,7 +88,7 @@ export default function Header() {
               <a
                 href={headerCta.href}
                 onClick={() => setOpen(false)}
-                className="block rounded-md bg-accent px-3 py-3 text-center text-sm font-semibold text-accent-fg"
+                className="block rounded-md bg-accent-strong px-3 py-3 text-center text-sm font-semibold text-accent-fg"
               >
                 {headerCta.label}
               </a>

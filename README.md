@@ -21,14 +21,49 @@ npm run preview # serves the built site locally
 npm run lint    # checks the code for common problems
 ```
 
-## Where things live
+## How to edit your content
+
+All the words, links and lists live in `src/data/`. You rarely need to touch the
+components.
+
+| File | What you change there |
+| --- | --- |
+| `src/data/profile.ts` | Name, hero text, portrait, CV link, stats, About text, menu, and the switches that show or hide the Experience and Notes sections |
+| `src/data/projects.ts` | Project cards: summaries, technologies, repository and live links, screenshots |
+| `src/data/skills.ts` | The Tech Stack list (one name per line) |
+| `src/data/experience.ts` | Your experience entries and the team-collaboration card |
+| `src/data/placeholders.ts` | The Engineering Notes (articles), currently placeholders |
+| `src/data/contact.ts` | Email, phone numbers, location and social links |
+
+Other files you may want:
 
 | Path | What it is |
 | --- | --- |
 | `src/index.css` | Theme colors (dark and light). Edit these to change the look. |
-| `src/App.tsx` | The page itself. |
-| `public/` | Files served as-is, such as the favicon. |
-| `index.html` | Page title, description and the theme-saving script. |
+| `src/components/skillIcons.ts` | Which logo each skill tile uses |
+| `public/` | Files served as they are: favicon, project screenshots (`public/projects/`). Put your portrait and CV here. |
+| `index.html` | Page title, description and link-preview tags |
 
-More folders (`src/components/`, `src/data/`) are added in later stages. The
-text, skills and projects will live in `src/data/` so they are easy to edit.
+### Adding your portrait or CV
+
+1. Copy the file into `public/` (for example `public/portrait.jpg` or `public/cv.pdf`).
+2. In `src/data/profile.ts`, set `portrait.src` to `'./portrait.jpg'`, or `cv.href` to `'./cv.pdf'`.
+
+## Publishing it for free
+
+Push your code to GitHub first, then pick one of these.
+
+### Vercel (recommended)
+
+1. Sign in at [vercel.com](https://vercel.com) with your GitHub account (the free Hobby plan is enough).
+2. Click **Add New > Project** and import the `francis-portfolio` repository.
+3. Vercel detects Vite automatically. Leave the settings as they are and click **Deploy**.
+4. After about a minute you get a live address. Every later `git push` to `main` updates the site by itself.
+
+### GitHub Pages
+
+1. In your repository, open **Settings > Pages** and set the source to **GitHub Actions**.
+2. Add a workflow that runs `npm ci` and `npm run build`, then publishes the `dist/` folder.
+3. The site appears at `https://fransixgram.github.io/francis-portfolio/`. The project is already set up with relative paths (`base: './'`), so it works at that address.
+
+When the site is live, add its address to the Open Graph tags in `index.html` (`og:url`) so link previews are complete.

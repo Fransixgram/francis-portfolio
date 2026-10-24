@@ -34,7 +34,8 @@ export const featuredProjects: Project[] = [
     summary:
       'A responsive eyewear storefront with a product catalogue, a shopping cart drawer, about and testimonial sections, and an order form.',
     tech: ['React', 'Tailwind CSS', 'Vite', 'lucide-react'],
-    live: 'https://sir-ken-eyewear.vercel.app',
+    // The old Vercel site was deleted, so there is no "live" link. If you deploy it
+    // again, add:  live: 'https://your-new-address',
     image: './projects/sir-ken-eyewear.jpg',
     imageAlt: 'Screenshot of the SIR-KEN-EYEWEAR home page',
   },

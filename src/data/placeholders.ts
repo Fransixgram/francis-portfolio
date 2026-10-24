@@ -1,17 +1,12 @@
-// EXPERIENCE and ENGINEERING NOTES.
-// Both are placeholders until you add real details. Nothing here is real.
+// ENGINEERING NOTES (articles).
+// These are placeholders until you add real articles. Nothing here is real.
 //
-// To add real content: replace the placeholder entry, or add new entries, and
-// remove "placeholder: true" from each one you have filled in.
-
-export type ExperienceItem = {
-  role: string
-  company: string
-  period: string
-  summary: string
-  tags: string[]
-  placeholder?: boolean
-}
+// To add a real article: replace a placeholder entry (or add a new one), fill in
+// title, summary and meta, add "href" if the article is online, and remove
+// "placeholder: true". To hide this whole section for now, set sections.notes
+// to false in src/data/profile.ts.
+//
+// Experience now lives in src/data/experience.ts.
 
 export type NoteItem = {
   title: string
@@ -20,18 +15,6 @@ export type NoteItem = {
   href?: string // link to the article, once it exists
   placeholder?: boolean
 }
-
-export const experienceItems: ExperienceItem[] = [
-  {
-    role: 'Your role title',
-    company: 'Company name',
-    period: 'Start date – End date',
-    summary:
-      'A short description of what you built or looked after in this role goes here. Replace this placeholder with real details.',
-    tags: [],
-    placeholder: true,
-  },
-]
 
 export const noteItems: NoteItem[] = [
   {

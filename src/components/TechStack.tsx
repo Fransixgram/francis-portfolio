@@ -1,6 +1,11 @@
+import { Smartphone } from 'lucide-react'
 import { skills } from '../data/skills'
 import { skillIcons } from './skillIcons'
 import Section from './Section'
+
+// React Native has no logo of its own in the icon package, so it uses the React
+// logo plus a small phone badge to tell the two tiles apart.
+const phoneBadge = new Set(['React Native'])
 
 // Letter badge for skills with no logo: "BullMQ" -> "BM", "AWS" -> "AWS".
 function monogram(name: string) {
@@ -20,7 +25,15 @@ export default function TechStack() {
               key={name}
               className="group flex flex-col items-center gap-2.5 rounded-xl border border-line bg-surface px-2 py-4 text-center transition-colors hover:border-accent/60"
             >
-              <span className="grid h-9 w-9 place-items-center text-muted transition-colors group-hover:text-fg">
+              <span className="relative grid h-9 w-9 place-items-center text-muted transition-colors group-hover:text-fg">
+                {phoneBadge.has(name) && (
+                  <span
+                    aria-hidden="true"
+                    className="absolute -bottom-1 -right-1.5 grid h-4 w-4 place-items-center rounded-full border border-line bg-surface-2 text-fg"
+                  >
+                    <Smartphone size={9} />
+                  </span>
+                )}
                 {icon ? (
                   <svg
                     viewBox="0 0 24 24"

@@ -1,18 +1,22 @@
-// CONTACT DETAILS. All of these are placeholders except GitHub.
-// Fill in a value to make that row real. While a value is empty, the row shows
-// a muted "Add your ..." placeholder, and the main button stays inactive.
-// Examples:
-//   email:    'you@example.com'
-//   phone:    '+234 800 000 0000'
-//   linkedin: 'https://www.linkedin.com/in/your-profile'
+// CONTACT DETAILS. Edit the values below to change what the Contact section and
+// the footer show.
+//
+// - Leave a value empty ('') to hide it: the Contact row turns into a muted
+//   "Add your ..." placeholder, and the footer icon disappears.
+// - "phones" is a list: add or remove numbers freely.
+// - Links must start with https://
 
 export const contact = {
   heading: "Let's connect",
-  text: 'Contact details will be added here. In the meantime, you can find my code on GitHub.',
-  buttonLabel: 'Start a conversation',
-  email: '',
-  phone: '',
-  location: '',
-  linkedin: '',
+  text: 'The quickest way to reach me is by email or phone. You can also find me on the platforms below.',
+  buttonLabel: 'Send an email',
+
+  email: 'isrems136@gmail.com',
+  phones: ['+234 906 502 8231', '+234 810 430 5731'],
+  location: 'Lagos, Nigeria',
+
+  linkedin: 'https://www.linkedin.com/in/ikeagwu-chidubem-550924414',
+  facebook: 'https://www.facebook.com/fransixgram',
+  x: 'https://www.x.com/Fransix007',
   github: 'https://github.com/Fransixgram',
 }
