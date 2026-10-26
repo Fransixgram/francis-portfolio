@@ -14,15 +14,14 @@ export const profile = {
   github: 'https://github.com/Fransixgram',
 
   // PORTRAIT: put your photo in the "public" folder (for example public/portrait.jpg)
-  // and set src to './portrait.jpg'. While src is empty, a placeholder is shown.
+  // The selected image is served from public/portrait.jpg.
   portrait: {
-    src: '',
+    src: './portrait.jpg',
     alt: 'Portrait of CHIDUBEM FRANCIS',
   },
 
-  // CV BUTTON: put your CV in the "public" folder (for example public/cv.pdf)
-  // and set href to './cv.pdf'. While href is empty, the button shows "CV coming soon".
-  cv: { href: '' },
+  // Downloadable CV served from the public folder.
+  cv: { href: './francis-chidubem-cv.pdf' },
 
   // The small code panel on the hero. Change the stack to whatever you like.
   codePanel: {
@@ -68,7 +67,7 @@ export const about = {
 // link, for example while you have nothing to put in it yet.
 export const sections = {
   experience: true,
-  notes: true, // currently shows placeholder article cards
+  notes: true, // shows project-based engineering reflections
 }
 
 // NAVIGATION. "href" must match the id of a section on the page.

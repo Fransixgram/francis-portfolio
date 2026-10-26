@@ -18,13 +18,16 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-bg/85 backdrop-blur">
-      <div className="mx-auto flex h-12 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
+      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
         {/* Brand: initials badge + name */}
-        <a href="#top" className="flex items-center gap-2" onClick={() => setOpen(false)}>
-          <span className="grid h-7 w-7 place-items-center rounded-md border border-accent/60 bg-accent-soft text-[10px] font-extrabold tracking-tight text-accent-text">
-            {profile.initials}
+        <a href="#top" className="group flex items-center gap-2.5" onClick={() => setOpen(false)}>
+          <span className="relative grid h-9 w-9 place-items-center rounded-full border border-accent/50 bg-surface shadow-sm shadow-accent/10 transition duration-200 group-hover:border-accent group-hover:shadow-md">
+            <span className="-translate-x-px text-[12px] font-black tracking-[-0.12em]">
+              <span className="text-accent">C</span><span className="text-fg">F</span>
+            </span>
+            <span aria-hidden="true" className="absolute right-0.5 top-0.5 h-1.5 w-1.5 rounded-full bg-accent ring-2 ring-bg" />
           </span>
-          <span className="text-[13px] font-semibold tracking-wide">{profile.name}</span>
+          <span className="text-[13px] font-semibold tracking-wide transition-colors group-hover:text-accent">{profile.name}</span>
         </a>
 
         {/* Desktop navigation (hidden on small screens) */}

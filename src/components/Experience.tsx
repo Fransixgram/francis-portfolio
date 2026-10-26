@@ -23,7 +23,7 @@ export default function Experience() {
     <Section id="experience" eyebrow="Experience" title="Experience and collaboration">
       <ol className="relative space-y-6 border-l border-line pl-6 sm:pl-8">
         {experienceItems.map((e, i) => (
-          <li key={`${e.role}-${i}`} className="relative">
+          <li key={`${e.role}-${i}`} data-scroll-reveal className="relative">
             {/* timeline dot: hollow while the entry is a placeholder */}
             <span
               className={`absolute -left-[1.9rem] top-5 h-3 w-3 rounded-full border-2 border-accent sm:-left-[2.4rem] ${
@@ -59,7 +59,7 @@ export default function Experience() {
       </ol>
 
       {/* Team collaboration: shown as its own card because it has no employer or dates */}
-      <div className="mt-6 flex gap-4 rounded-xl border border-line bg-surface p-5">
+      <div data-scroll-reveal className="mt-6 flex gap-4 rounded-xl border border-line bg-surface p-5">
         <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-accent/40 bg-accent-soft text-accent-text">
           <Users size={17} />
         </span>

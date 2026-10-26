@@ -1,4 +1,5 @@
-import { ArrowUpRight, Plus } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Plus, X } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
 import {
   featuredProjects,
   githubProfile,
@@ -12,43 +13,28 @@ function TechTags({ tech }: { tech: string[] }) {
   if (!tech.length) return null
   return (
     <ul className="mt-4 flex flex-wrap gap-1.5">
-      {tech.map((t) => (
+      {tech.map((item) => (
         <li
-          key={t}
+          key={item}
           className="rounded-md border border-line bg-surface-2 px-2 py-0.5 text-xs text-muted"
         >
-          {t}
+          {item}
         </li>
       ))}
     </ul>
   )
 }
 
-// "Repository" link, plus a "Live site" link when the project has one
-function LinkRow({ project }: { project: Project }) {
+function ViewProjectButton({ project, onOpen }: { project: Project; onOpen: (project: Project) => void }) {
   return (
-    <div className="mt-5 flex flex-wrap gap-4 text-sm font-medium">
-      <a
-        href={project.repo}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={`${project.name} repository on GitHub`}
-        className="inline-flex items-center gap-1.5 text-accent hover:underline"
-      >
-        <GithubIcon className="h-3.5 w-3.5" /> Repository
-      </a>
-      {project.live && (
-        <a
-          href={project.live}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`${project.name} live site`}
-          className="inline-flex items-center gap-1 text-accent hover:underline"
-        >
-          Live site <ArrowUpRight size={14} />
-        </a>
-      )}
-    </div>
+    <button
+      type="button"
+      onClick={() => onOpen(project)}
+      aria-label={`View project details for ${project.name}`}
+      className="mt-5 inline-flex items-center gap-2 self-start rounded-lg border border-accent/40 px-3.5 py-2 text-sm font-semibold text-accent transition hover:border-accent hover:bg-accent-soft"
+    >
+      View project <ArrowRight size={15} />
+    </button>
   )
 }
 
@@ -78,9 +64,17 @@ function Thumb({ project }: { project: Project }) {
   )
 }
 
-function FeaturedCard({ project, index }: { project: Project; index: number }) {
+function FeaturedCard({
+  project,
+  index,
+  onOpen,
+}: {
+  project: Project
+  index: number
+  onOpen: (project: Project) => void
+}) {
   return (
-    <article className="flex flex-col overflow-hidden rounded-2xl border border-line bg-surface transition-colors hover:border-accent/60">
+    <article data-scroll-reveal className="flex flex-col overflow-hidden rounded-2xl border border-line bg-surface transition-colors hover:border-accent/60">
       <div className="border-b border-line">
         <Thumb project={project} />
       </div>
@@ -92,43 +86,53 @@ function FeaturedCard({ project, index }: { project: Project; index: number }) {
         <p className="mt-2 text-sm leading-relaxed text-muted">{project.summary}</p>
         <TechTags tech={project.tech} />
         <div className="mt-auto">
-          <LinkRow project={project} />
+          <ViewProjectButton project={project} onOpen={onOpen} />
         </div>
       </div>
     </article>
   )
 }
 
-function SmallCard({ project }: { project: Project }) {
+function SmallCard({ project, onOpen }: { project: Project; onOpen: (project: Project) => void }) {
   return (
-    <article className="flex flex-col rounded-xl border border-line bg-surface p-5 transition-colors hover:border-accent/60">
+    <article data-scroll-reveal className="flex flex-col rounded-xl border border-line bg-surface p-5 transition-colors hover:border-accent/60">
       <h4 className="break-words text-base font-semibold">{project.name}</h4>
       <p className="mt-2 text-sm leading-relaxed text-muted">{project.summary}</p>
       <TechTags tech={project.tech} />
       <div className="mt-auto">
-        <LinkRow project={project} />
+        <ViewProjectButton project={project} onOpen={onOpen} />
       </div>
     </article>
   )
 }
 
 export default function Projects() {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const dialogRef = useRef<HTMLDialogElement>(null)
+
+  useEffect(() => {
+    const dialog = dialogRef.current
+    if (selectedProject && dialog && !dialog.open) dialog.showModal()
+    if (!selectedProject && dialog?.open) dialog.close()
+  }, [selectedProject])
+
+  const openProject = (project: Project) => setSelectedProject(project)
+
   return (
     <Section id="projects" eyebrow="Featured work" title="Projects I have built" tinted>
       <div className="grid gap-5 md:grid-cols-2">
-        {featuredProjects.map((p, i) => (
-          <FeaturedCard key={p.name} project={p} index={i} />
+        {featuredProjects.map((project, index) => (
+          <FeaturedCard key={project.name} project={project} index={index} onOpen={openProject} />
         ))}
       </div>
 
       <h3 className="mb-5 mt-14 text-lg font-semibold">More projects</h3>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {secondaryProjects.map((p) => (
-          <SmallCard key={p.name} project={p} />
+        {secondaryProjects.map((project) => (
+          <SmallCard key={project.name} project={project} onOpen={openProject} />
         ))}
 
-        {/* Placeholder for future work. It is a plain box, not a link. */}
-        <div className="flex min-h-40 flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-line p-5 text-center">
+        <div data-scroll-reveal className="flex min-h-40 flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-line p-5 text-center">
           <span className="grid h-9 w-9 place-items-center rounded-full border border-line text-muted">
             <Plus size={18} />
           </span>
@@ -147,6 +151,78 @@ export default function Projects() {
           <GithubIcon /> View all repositories on GitHub <ArrowUpRight size={14} />
         </a>
       </div>
+
+      <dialog
+        ref={dialogRef}
+        aria-labelledby="project-dialog-title"
+        onClose={() => setSelectedProject(null)}
+        onClick={(event) => {
+          if (event.target === dialogRef.current) dialogRef.current?.close()
+        }}
+        className="m-auto max-h-[88vh] w-[min(92vw,48rem)] max-w-none overflow-y-auto rounded-3xl border border-line bg-surface p-0 text-fg shadow-2xl backdrop:bg-slate-950/70 backdrop:backdrop-blur-sm"
+      >
+        {selectedProject && (
+          <div>
+            <div className="relative">
+              {selectedProject.image ? (
+                <img
+                  src={selectedProject.image}
+                  alt={selectedProject.imageAlt ?? `Screenshot of ${selectedProject.name}`}
+                  className="max-h-72 w-full object-cover object-top"
+                />
+              ) : (
+                <div className="grid h-36 place-items-center bg-gradient-to-br from-surface-2 to-surface">
+                  <span className="grid h-14 w-14 place-items-center rounded-2xl border border-accent/40 bg-accent-soft text-lg font-extrabold text-accent">
+                    {selectedProject.name.slice(0, 2).toUpperCase()}
+                  </span>
+                </div>
+              )}
+              <button
+                type="button"
+                onClick={() => dialogRef.current?.close()}
+                aria-label="Close project details"
+                className="absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-full border border-white/20 bg-slate-950/70 text-white backdrop-blur transition hover:bg-slate-950"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="p-6 sm:p-8">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">Project details</p>
+              <h3 id="project-dialog-title" className="mt-2 break-words text-2xl font-bold tracking-tight sm:text-3xl">
+                {selectedProject.name}
+              </h3>
+              <p className="mt-4 text-sm leading-7 text-muted sm:text-base">{selectedProject.summary}</p>
+
+              <div className="mt-6">
+                <h4 className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">Built with</h4>
+                <TechTags tech={selectedProject.tech} />
+              </div>
+
+              <div className="mt-8 flex flex-wrap gap-3 border-t border-line pt-5">
+                <a
+                  href={selectedProject.repo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl bg-accent-strong px-4 py-3 text-sm font-semibold text-accent-fg transition hover:opacity-90"
+                >
+                  <GithubIcon /> View GitHub repository <ArrowUpRight size={15} />
+                </a>
+                {selectedProject.live && (
+                  <a
+                    href={selectedProject.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-xl border border-line px-4 py-3 text-sm font-semibold transition hover:border-accent"
+                  >
+                    View live project <ArrowUpRight size={15} />
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+      </dialog>
     </Section>
   )
 }

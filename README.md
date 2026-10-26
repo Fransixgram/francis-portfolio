@@ -32,7 +32,7 @@ components.
 | `src/data/projects.ts` | Project cards: summaries, technologies, repository and live links, screenshots |
 | `src/data/skills.ts` | The Tech Stack list (one name per line) |
 | `src/data/experience.ts` | Your experience entries and the team-collaboration card |
-| `src/data/placeholders.ts` | The Engineering Notes (articles), currently placeholders |
+| `src/data/notes.ts` | Project-based Engineering Notes and reflections |
 | `src/data/contact.ts` | Email, phone numbers, location and social links |
 
 Other files you may want:
@@ -44,10 +44,10 @@ Other files you may want:
 | `public/` | Files served as they are: favicon, project screenshots (`public/projects/`). Put your portrait and CV here. |
 | `index.html` | Page title, description and link-preview tags |
 
-### Adding your portrait or CV
+### Updating your portrait or CV
 
 1. Copy the file into `public/` (for example `public/portrait.jpg` or `public/cv.pdf`).
-2. In `src/data/profile.ts`, set `portrait.src` to `'./portrait.jpg'`, or `cv.href` to `'./cv.pdf'`.
+2. In `src/data/profile.ts`, set `portrait.src` to `'./portrait.jpg'`, or `cv.href` to the CV filename (currently `'./francis-chidubem-cv.pdf'`).
 
 ## Publishing it for free
 

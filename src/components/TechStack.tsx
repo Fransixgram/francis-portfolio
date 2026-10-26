@@ -23,6 +23,7 @@ export default function TechStack() {
           return (
             <li
               key={name}
+              data-scroll-reveal
               className="group flex flex-col items-center gap-2.5 rounded-xl border border-line bg-surface px-2 py-4 text-center transition-colors hover:border-accent/60"
             >
               <span className="relative grid h-9 w-9 place-items-center text-muted transition-colors group-hover:text-fg">

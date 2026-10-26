@@ -42,7 +42,7 @@ export default function About() {
           {about.featureCards.map((f) => {
             const Icon = icons[f.icon] ?? Code
             return (
-              <li key={f.title} className="rounded-xl border border-line bg-surface p-4">
+              <li key={f.title} data-scroll-reveal className="rounded-xl border border-line bg-surface p-4">
                 <span className="grid h-8 w-8 place-items-center rounded-md border border-accent/40 bg-accent-soft text-accent">
                   <Icon size={16} />
                 </span>

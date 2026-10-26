@@ -70,7 +70,7 @@ function CodePanel() {
 
 export default function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden">
+    <section id="top" data-scroll-reveal className="relative overflow-hidden">
       {/* Soft blue glow in the top-right corner */}
       <div
         aria-hidden="true"

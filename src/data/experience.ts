@@ -19,8 +19,8 @@ export const experienceItems: ExperienceItem[] = [
     company: 'Bejork Furniture Store',
     period: '',
     summary:
-      'I work with customers to understand what they need, explain product options, and support sales. This role has strengthened my product thinking, communication, and ability to connect customer needs with practical solutions.',
-    tags: ['Customer communication', 'Product thinking', 'Sales support'],
+      'I speak with customers to understand what they are looking for, ask questions when they need help narrowing down options, and explain product features in clear, practical terms. I support the sales process by helping customers compare choices and make informed decisions. This day-to-day work has strengthened how I listen, communicate trade-offs, and think about a product from the customer’s point of view.',
+    tags: ['Customer needs', 'Product guidance', 'Clear communication', 'Sales support'],
   },
 ]
 
@@ -30,6 +30,6 @@ export const experienceItems: ExperienceItem[] = [
 export const collaboration = {
   title: 'Collaboration on software projects',
   summary:
-    'I collaborate with other developers on software projects: sharing ideas, coordinating implementation, and contributing to solutions as part of a team.',
-  tags: ['Sharing ideas', 'Coordinating implementation', 'Contributing to solutions'],
+    'I work with other developers to turn a shared idea into a clear set of tasks. We discuss the approach, coordinate who is handling each part, share progress as implementation moves forward, and bring the pieces together into a working solution. I value asking questions early, communicating changes, and making it easy for teammates to understand how my contribution fits into the larger project.',
+  tags: ['Planning together', 'Implementation', 'Progress updates', 'Team communication'],
 }
