@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap');
 @import 'tailwindcss';
 
 /*
@@ -6,32 +7,32 @@
   fixed colors, so one edit here updates every section at once.
 */
 :root {
-  --bg: #f4f7fc;
+  --bg: #faf8f5;
   --surface: #ffffff;
-  --surface-2: #eaf0fa;
-  --line: #d6e0f0;
-  --fg: #0b1426;
-  --muted: #4f5f7a;
-  --accent: #2563eb;
-  --accent-strong: #1d4ed8; /* button background: white text on it passes contrast */
-  --accent-text: #1d4ed8; /* small blue text on a tinted background */
-  --accent-soft: #dbe8ff;
+  --surface-2: #f3efea;
+  --line: #e4ded7;
+  --fg: #121212;
+  --muted: #5a5856;
+  --accent: #ff7a00;
+  --accent-strong: #b54b00;
+  --accent-text: #a94700;
+  --accent-soft: #fff0e2;
   --accent-fg: #ffffff;
   color-scheme: light;
 }
 
-/* Dark theme (the default): navy background, blue accent */
+/* Dark theme keeps the warm amber accent. */
 .dark {
-  --bg: #050b17;
-  --surface: #0a1325;
-  --surface-2: #0f1c36;
-  --line: #1b2b4b;
-  --fg: #e6edf7;
-  --muted: #8fa0bd;
-  --accent: #3b82f6;
-  --accent-strong: #2563eb;
-  --accent-text: #60a5fa;
-  --accent-soft: #0f2347;
+  --bg: #17130f;
+  --surface: #211b16;
+  --surface-2: #2c241e;
+  --line: #41352b;
+  --fg: #f7f0e8;
+  --muted: #c3b6a8;
+  --accent: #ff963d;
+  --accent-strong: #bf5900;
+  --accent-text: #ffb875;
+  --accent-soft: #392617;
   --accent-fg: #ffffff;
   color-scheme: dark;
 }
@@ -49,7 +50,10 @@
   --color-accent-text: var(--accent-text);
   --color-accent-soft: var(--accent-soft);
   --color-accent-fg: var(--accent-fg);
-  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Syne', 'Plus Jakarta Sans', ui-sans-serif, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-mono: 'Space Grotesk', ui-monospace, monospace;
 }
 
 html {
@@ -61,6 +65,10 @@ body {
   color: var(--fg);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
 }
 
 /* Keeps section headings clear of the sticky header when jumping via nav links */

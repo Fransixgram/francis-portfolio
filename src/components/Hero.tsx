@@ -9,11 +9,11 @@ function Portrait() {
       {/* soft glow behind the portrait */}
       <div
         aria-hidden="true"
-        className="absolute inset-[-12%] rounded-full bg-accent/25 blur-3xl"
+        className="absolute inset-[-12%] rounded-[2.5rem] bg-accent/25 blur-3xl"
       />
       {/* ring */}
-      <div className="relative rounded-full bg-gradient-to-br from-accent via-accent/30 to-transparent p-[3px]">
-        <div className="aspect-square overflow-hidden rounded-full bg-surface">
+      <div className="relative rounded-[2rem] bg-gradient-to-br from-accent via-accent/30 to-transparent p-[3px] shadow-xl shadow-accent/15">
+        <div className="aspect-[4/5] overflow-hidden rounded-[calc(2rem-3px)] bg-surface">
           {src ? (
             <img src={src} alt={alt} className="h-full w-full object-cover" />
           ) : (
@@ -50,7 +50,7 @@ function CodePanel() {
         <span className="ml-2 font-mono text-[10px] text-slate-400">{file}</span>
       </div>
       <pre className="whitespace-pre-wrap break-words px-3 py-2.5 font-mono text-[10px] leading-relaxed text-slate-300 sm:text-[11px]">
-        <span className="text-sky-400">const</span> engineer = {'{'}
+        <span className="text-amber-300">const</span> engineer = {'{'}
         {'\n'}
         {'  '}name: <span className="text-emerald-300">"{profile.name}"</span>,{'\n'}
         {'  '}role: <span className="text-emerald-300">"{profile.title}"</span>,{'\n'}

@@ -24,28 +24,28 @@ export default function Contact() {
     <Section id="contact" eyebrow="Contact" title="Get in touch">
       <div
         data-scroll-reveal
-        className="relative isolate overflow-hidden rounded-[2rem] border border-slate-800 bg-[#071322] p-6 text-white shadow-2xl shadow-slate-950/10 sm:p-9 lg:p-11"
+        className="relative isolate overflow-hidden rounded-[2rem] border border-line bg-surface p-6 text-fg shadow-xl shadow-black/5 sm:p-9 lg:p-11"
       >
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -right-24 -top-32 -z-10 h-80 w-80 rounded-full bg-blue-500/20 blur-3xl"
+          className="pointer-events-none absolute -right-24 -top-32 -z-10 h-80 w-80 rounded-full bg-accent/15 blur-3xl"
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -bottom-40 left-1/3 -z-10 h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl"
+          className="pointer-events-none absolute -bottom-40 left-1/3 -z-10 h-72 w-72 rounded-full bg-accent/10 blur-3xl"
         />
 
         <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
           <div className="flex flex-col items-start justify-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-3 py-1.5 text-xs font-medium text-slate-200">
-              <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
+            <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface-2 px-3 py-1.5 text-xs font-medium text-muted">
+              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
               Contact and links
             </span>
             <h3 className="mt-5 max-w-md text-3xl font-bold tracking-tight sm:text-4xl">
               {contact.heading}
-              <span className="text-sky-300">. Let&apos;s talk.</span>
+              <span className="text-accent">. Let&apos;s talk.</span>
             </h3>
-            <p className="mt-4 max-w-lg text-sm leading-6 text-slate-300 sm:text-base">
+            <p className="mt-4 max-w-lg text-sm leading-6 text-muted sm:text-base">
               {contact.text}
             </p>
 
@@ -53,7 +53,7 @@ export default function Contact() {
               {contact.email && (
                 <a
                   href={`mailto:${contact.email}`}
-                  className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-sky-100"
+                  className="inline-flex items-center gap-2 rounded-xl bg-accent-strong px-4 py-3 text-sm font-semibold text-white transition hover:opacity-90"
                 >
                   <Mail size={16} /> Send me an email <ArrowUpRight size={15} />
                 </a>
@@ -62,7 +62,7 @@ export default function Contact() {
                 <a
                   href={profile.cv.href}
                   download
-                  className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/[0.06] px-4 py-3 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/10"
+                  className="inline-flex items-center gap-2 rounded-xl border border-line bg-surface-2 px-4 py-3 text-sm font-semibold text-fg transition hover:border-accent"
                 >
                   <Download size={16} /> Download CV
                 </a>
@@ -71,7 +71,7 @@ export default function Contact() {
 
             {socials.length > 0 && (
               <div className="mt-8 flex flex-wrap items-center gap-2">
-                <span className="mr-1 text-xs font-medium text-slate-400">Find me on</span>
+                <span className="mr-1 text-xs font-medium text-muted">Find me on</span>
                 {socials.map((social) => (
                   <a
                     key={social.id}
@@ -80,7 +80,7 @@ export default function Contact() {
                     rel="noopener noreferrer"
                     aria-label={social.label}
                     title={social.label}
-                    className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/[0.04] text-slate-300 transition hover:-translate-y-0.5 hover:border-sky-300/50 hover:bg-white/10 hover:text-white"
+                    className="grid h-10 w-10 place-items-center rounded-xl border border-line bg-surface-2 text-muted transition hover:-translate-y-0.5 hover:border-accent hover:text-accent-text"
                   >
                     {social.icon}
                   </a>
@@ -89,29 +89,29 @@ export default function Contact() {
             )}
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4 backdrop-blur sm:p-5">
+          <div className="rounded-2xl border border-line bg-bg/70 p-4 backdrop-blur sm:p-5">
             <div className="mb-3 px-1">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent-text">
                 Direct details
               </p>
-              <p className="mt-1 text-sm text-slate-300">Choose the easiest way to reach me.</p>
+              <p className="mt-1 text-sm text-muted">Choose the easiest way to reach me.</p>
             </div>
             <ul className="space-y-2.5">
               {contactItems.map((item) => {
                 const content = (
                   <>
-                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-white/10 bg-white/[0.06] text-sky-300">
+                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-line bg-surface text-accent-text">
                       {item.icon}
                     </span>
                     <span className="min-w-0">
-                      <span className="block text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400">
+                      <span className="block text-[10px] font-semibold uppercase tracking-[0.16em] text-muted">
                         {item.label}
                       </span>
-                      <span className="mt-1 block truncate text-sm font-medium text-white">
+                      <span className="mt-1 block truncate text-sm font-medium text-fg">
                         {item.value}
                       </span>
                     </span>
-                    {item.href && <ArrowUpRight size={15} className="ml-auto shrink-0 text-slate-500" />}
+                    {item.href && <ArrowUpRight size={15} className="ml-auto shrink-0 text-muted" />}
                   </>
                 )
 
@@ -120,12 +120,12 @@ export default function Contact() {
                     {item.href ? (
                       <a
                         href={item.href}
-                        className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-slate-950/30 p-3 transition hover:border-sky-300/30 hover:bg-slate-950/50"
+                        className="flex items-center gap-3 rounded-xl border border-line bg-surface p-3 transition hover:border-accent"
                       >
                         {content}
                       </a>
                     ) : (
-                      <div className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-slate-950/30 p-3">
+                      <div className="flex items-center gap-3 rounded-xl border border-line bg-surface p-3">
                         {content}
                       </div>
                     )}

@@ -1,38 +1,447 @@
-<!doctype html>
-<html lang="en" class="dark">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#050b17" />
-    <meta
-      name="description"
-      content="Portfolio of CHIDUBEM FRANCIS, Full-stack Software Engineer."
-    />
-    <title>CHIDUBEM FRANCIS | Full-stack Software Engineer</title>
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chidubem Francis — Full-stack Software Engineer</title>
+  <meta name="description" content="Portfolio of Chidubem Francis, a full-stack software engineer building web and mobile applications." />
 
-    <!-- Link previews (WhatsApp, LinkedIn, X, Facebook). Add og:url and og:image
-         once the site is live and you have a preview image (about 1200x630). -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="CHIDUBEM FRANCIS" />
-    <meta property="og:title" content="CHIDUBEM FRANCIS | Full-stack Software Engineer" />
-    <meta
-      property="og:description"
-      content="Portfolio of CHIDUBEM FRANCIS, Full-stack Software Engineer."
-    />
-    <meta name="twitter:card" content="summary" />
-    <script>
-      // Dark is the default theme. If the visitor previously chose light, apply it
-      // here, before the page paints, so there is no dark-to-light flash.
-      try {
-        if (localStorage.getItem('theme') === 'light') {
-          document.documentElement.classList.remove('dark')
+  <!-- Google Fonts: Instrument Serif, Syne, Plus Jakarta Sans, Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            amberBrand: '#FF7A00',
+            peachBrand: '#FFAE5D',
+            goldBrand: '#F59E0B',
+            bgCream: '#FAF8F5',
+            bgCard: '#FFFFFF',
+            darkOnyx: '#121212',
+            textMuted: '#6B6864'
+          },
+          fontFamily: {
+            serif: ['"Instrument Serif"', 'Italiana', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['Syne', '"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"Space Grotesk"', 'monospace']
+          }
         }
-      } catch (e) {}
-    </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+      }
+    }
+  </script>
+
+  <!-- Custom Design System Stylesheet -->
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body class="bg-[#FAF8F5] text-[#121212] overflow-x-hidden antialiased selection:bg-[#FF7A00] selection:text-white">
+
+  <!-- Ambient lighting glows -->
+  <div class="ambient-glow-top"></div>
+  <div class="ambient-glow-mid"></div>
+  <div class="ambient-glow-bottom"></div>
+  <div class="grain-overlay"></div>
+
+  <!-- =========================================================================
+      1. NAVIGATION BAR
+     ========================================================================= -->
+  <header class="sticky top-0 z-50 nav-blur-glass transition-all duration-300">
+    <div class="container mx-auto flex items-center justify-between py-4 md:py-5">
+      
+      <!-- Brand Logo -->
+      <a href="#home" class="flex items-center group text-xl md:text-2xl font-serif font-bold tracking-tight text-[#121212] hover:opacity-85 transition">
+        <span>Francis</span>
+        <span class="text-[#FF7A00] inline-block font-sans transform group-hover:scale-125 transition duration-300">.</span>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden lg:flex items-center gap-8 text-[0.93rem] font-medium text-[#4A4846]">
+        <a href="#home" class="hover:text-[#121212] hover:underline underline-offset-8 transition">Home</a>
+        <a href="#works" class="hover:text-[#121212] hover:underline underline-offset-8 transition">Works</a>
+        <a href="#about" class="hover:text-[#121212] hover:underline underline-offset-8 transition">About</a>
+        <a href="#services" class="hover:text-[#121212] hover:underline underline-offset-8 transition">Expertise</a>
+        <a href="#experience" class="hover:text-[#121212] hover:underline underline-offset-8 transition">Experience</a>
+        <a href="#notes" class="hover:text-[#121212] hover:underline underline-offset-8 transition">Engineering Notes</a>
+      </nav>
+
+      <!-- Header Right Actions -->
+      <div class="flex items-center gap-3">
+        <!-- Audio Feedback Toggle -->
+        <button id="soundToggleBtn" title="Toggle Interaction Sound" class="hidden sm:flex items-center justify-center w-10 h-10 rounded-full border border-black/10 bg-white/70 hover:bg-white text-gray-700 hover:text-black transition shadow-sm">
+          <i data-lucide="volume-2" class="w-4 h-4 text-[#FF7A00]"></i>
+        </button>
+
+        <!-- Pill Contact Button -->
+        <a id="navContactBtn" href="#contact" class="btn-primary flex items-center gap-2 group">
+          <span>Contact</span>
+          <i data-lucide="arrow-up-right" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+        </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobileMenuBtn" class="lg:hidden flex items-center justify-center w-10 h-10 rounded-full border border-black/10 bg-white" aria-label="Toggle menu">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Dropdown Drawer -->
+    <div id="mobileMenuDrawer" class="hidden lg:hidden border-b border-black/10 bg-[#FAF8F5]/95 backdrop-blur-xl px-6 py-6 transition-all duration-300">
+      <div class="flex flex-col gap-4 text-base font-medium">
+        <a href="#home" class="mobile-nav-link py-2 border-b border-black/5">Home</a>
+        <a href="#works" class="mobile-nav-link py-2 border-b border-black/5">Works</a>
+        <a href="#about" class="mobile-nav-link py-2 border-b border-black/5">About</a>
+        <a href="#services" class="mobile-nav-link py-2 border-b border-black/5">Expertise</a>
+        <a href="#experience" class="mobile-nav-link py-2 border-b border-black/5">Experience</a>
+        <a href="#notes" class="mobile-nav-link py-2 border-b border-black/5">Engineering Notes</a>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- =========================================================================
+      2. HERO SECTION (1:1 Layout with Signature Script & Portrait Aura)
+     ========================================================================= -->
+  <section id="home" class="relative pt-6 pb-20 md:pt-10 md:pb-28 overflow-hidden">
+    <div class="container mx-auto">
+
+      <!-- Status Pill Badge -->
+      <div class="flex justify-start mb-6 md:mb-8">
+        <div class="status-pill">
+          <span class="status-dot"></span>
+          <span class="text-xs sm:text-sm font-medium tracking-wide">Full-stack software engineer</span>
+        </div>
+      </div>
+
+      <!-- Script Serif Giant Headline: "Hey, there" -->
+      <div class="relative text-center w-full z-10 select-none">
+        <h1 class="script-subhead text-[#1A1A1A] tracking-normal inline-block transform hover:scale-[1.01] transition duration-500">
+          Hello, there
+        </h1>
+      </div>
+
+      <!-- Hero Main Grid: Left Bold Headline | Center Portrait | Right Details & Title -->
+      <div class="relative mt-[-2.5rem] md:mt-[-4.5rem] grid grid-cols-1 lg:grid-cols-12 items-center gap-8 z-20">
+
+        <!-- Left Side: Francis introduction -->
+        <div class="lg:col-span-6 order-2 lg:order-1 text-center lg:text-left pt-4 lg:pt-20">
+          <h2 class="display-hero-text">
+            I AM<br />CHIDUBEM<br />FRANCIS
+          </h2>
+          <p class="mt-4 text-[#66635F] text-sm md:text-base font-normal max-w-xs mx-auto lg:mx-0 leading-relaxed">
+            I build practical web and mobile applications, from polished interfaces to APIs and databases.
+          </p>
+          
+          <div class="mt-6 flex items-center justify-center lg:justify-start gap-4">
+            <a href="#works" class="btn-primary">
+              <span>Explore Works</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Side: Specialization text + role -->
+        <div class="lg:col-span-6 order-3 text-center lg:text-right flex flex-col justify-between h-full pt-4 lg:pt-12">
+          <!-- Top right paragraph matching reference -->
+          <div class="max-w-xs ml-auto mr-auto lg:mr-0 mb-6 lg:mb-12">
+            <p class="text-xs md:text-sm font-semibold tracking-wider uppercase text-[#121212] mb-1">
+              Specialized in
+            </p>
+            <p class="text-sm md:text-base font-normal text-[#5A5856] leading-relaxed">
+              JavaScript, TypeScript, PHP, web apps, mobile apps, APIs, and databases.
+            </p>
+          </div>
+
+          <!-- Giant bottom right text -->
+          <div>
+            <h2 class="display-hero-text text-[#121212] text-center lg:text-right">
+              FULL-STACK<br />SOFTWARE<br />ENGINEER
+            </h2>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+      3. RECENT PROJECTS SECTION
+     ========================================================================= -->
+  <section id="works" class="py-20 md:py-32 relative border-t border-black/5 bg-[#FAF8F5]">
+    <div class="container mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div>
+          <span class="text-xs font-mono font-bold tracking-widest text-[#FF7A00] uppercase mb-2 block">Selected work</span>
+          <h2 class="display-section-title">PROJECTS</h2>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <button class="project-filter-btn px-4 py-2 rounded-full text-xs md:text-sm font-semibold transition bg-[#121212] text-white shadow-md" data-filter="all">All</button>
+          <button class="project-filter-btn px-4 py-2 rounded-full text-xs md:text-sm font-semibold transition bg-white/80 text-[#5A5856] hover:bg-white border border-black/5" data-filter="store">Storefronts</button>
+          <button class="project-filter-btn px-4 py-2 rounded-full text-xs md:text-sm font-semibold transition bg-white/80 text-[#5A5856] hover:bg-white border border-black/5" data-filter="backend">Back ends</button>
+          <button class="project-filter-btn px-4 py-2 rounded-full text-xs md:text-sm font-semibold transition bg-white/80 text-[#5A5856] hover:bg-white border border-black/5" data-filter="app">Web apps</button>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <article class="project-card group cursor-pointer" data-category="store" onclick="openProjectModal('cosmo')">
+          <div class="project-image-wrap">
+            <img src="./projects/cosmo-mobile-spares.jpg" alt="Cosmo Mobile Spares storefront" loading="lazy" />
+            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md rounded-full p-2.5 shadow-md group-hover:scale-110 group-hover:bg-[#121212] group-hover:text-white transition"><i data-lucide="arrow-up-right" class="w-4 h-4"></i></div>
+            <div class="absolute bottom-4 left-4 bg-black/60 backdrop-blur-md text-white text-xs px-3 py-1.5 rounded-full font-medium">E-commerce</div>
+          </div>
+          <div class="p-6 flex flex-col justify-between flex-grow">
+            <div><div class="flex items-center justify-between text-xs text-[#8E8C89] font-mono mb-2"><span>React · TypeScript</span><span>Storefront</span></div>
+              <h3 class="font-display text-xl font-bold text-[#121212] mb-3 group-hover:text-[#FF7A00] transition">Cosmo Mobile Spares</h3>
+              <p class="text-sm text-[#66635F] line-clamp-2 mb-4 leading-relaxed">A mobile parts storefront with checkout and admin tools, plus a recovery workflow that retries missing or failed order confirmation emails safely.</p></div>
+            <div class="flex flex-wrap gap-1.5 pt-4 border-t border-black/5"><span class="text-[11px] font-medium bg-[#F3EFEA] text-[#4A4846] px-2.5 py-1 rounded-md">Supabase</span><span class="text-[11px] font-medium bg-[#F3EFEA] text-[#4A4846] px-2.5 py-1 rounded-md">Paystack</span><span class="text-[11px] font-medium bg-[#F3EFEA] text-[#4A4846] px-2.5 py-1 rounded-md">Resend</span></div>
+          </div>
+        </article>
+        <article class="project-card group cursor-pointer" data-category="store" onclick="openProjectModal('sirken')">
+          <div class="project-image-wrap">
+            <img src="./projects/sir-ken-eyewear.jpg" alt="Sir Ken Eyewear storefront" loading="lazy" />
+            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md rounded-full p-2.5 shadow-md group-hover:scale-110 group-hover:bg-[#121212] group-hover:text-white transition"><i data-lucide="arrow-up-right" class="w-4 h-4"></i></div>
+            <div class="absolute bottom-4 left-4 bg-black/60 backdrop-blur-md text-white text-xs px-3 py-1.5 rounded-full font-medium">E-commerce</div>
+          </div>
+          <div class="p-6 flex flex-col justify-between flex-grow">
+            <div><div class="flex items-center justify-between text-xs text-[#8E8C89] font-mono mb-2"><span>React</span><span>Storefront</span></div>
+              <h3 class="font-display text-xl font-bold text-[#121212] mb-3 group-hover:text-[#FF7A00] transition">Sir Ken Eyewear</h3>
+              <p class="text-sm text-[#66635F] line-clamp-2 mb-4 leading-relaxed">A responsive eyewear shop with a catalogue, cart drawer, about and testimonial sections, and an order form.</p></div>
+            <div class="flex flex-wrap gap-1.5 pt-4 border-t border-black/5"><span class="text-[11px] font-medium bg-[#F3EFEA] text-[#4A4846] px-2.5 py-1 rounded-md">Tailwind CSS</span><span class="text-[11px] font-medium bg-[#F3EFEA] text-[#4A4846] px-2.5 py-1 rounded-md">Vite</span><span class="text-[11px] font-medium bg-[#F3EFEA] text-[#4A4846] px-2.5 py-1 rounded-md">React</span></div>
+          </div>
+        </article>
+        <article class="project-card group cursor-pointer" data-category="backend" onclick="openProjectModal('nodestore')">
+          <div class="project-image-wrap grid place-items-center bg-gradient-to-br from-[#24180f] via-[#4b2b14] to-[#ff7a00] text-white">
+            <div class="text-center"><span class="font-mono text-6xl font-bold">API</span><p class="mt-2 text-xs uppercase tracking-[0.25em] text-white/80">Node · Express · MongoDB</p></div>
+            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md rounded-full p-2.5 shadow-md text-[#121212]"><i data-lucide="arrow-up-right" class="w-4 h-4"></i></div>
+            <div class="absolute bottom-4 left-4 bg-black/60 backdrop-blur-md text-white text-xs px-3 py-1.5 rounded-full font-medium">Back end</div>
+          </div>
+          <div class="p-6 flex flex-col justify-between flex-grow">
+            <div><div class="flex items-center justify-between text-xs text-[#8E8C89] font-mono mb-2"><span>Node.js · Express</span><span>API</span></div>
+              <h3 class="font-display text-xl font-bold text-[#121212] mb-3 group-hover:text-[#FF7A00] transition">Node-Store</h3>
+              <p class="text-sm text-[#66635F] line-clamp-2 mb-4 leading-relaxed">A store API with authentication, user, admin, and product routes, image uploads, and account email templates.</p></div>
+            <div class="flex flex-wrap gap-1.5 pt-4 border-t border-black/5"><span class="text-[11px] font-medium bg-[#F3EFEA] text-[#4A4846] px-2.5 py-1 rounded-md">MongoDB</span><span class="text-[11px] font-medium bg-[#F3EFEA] text-[#4A4846] px-2.5 py-1 rounded-md">JWT</span><span class="text-[11px] font-medium bg-[#F3EFEA] text-[#4A4846] px-2.5 py-1 rounded-md">Cloudinary</span></div>
+          </div>
+        </article>
+        <article class="project-card group cursor-pointer" data-category="app" onclick="openProjectModal('skyline')">
+          <div class="project-image-wrap grid place-items-center bg-gradient-to-br from-[#132b42] via-[#2f7191] to-[#edb66a] text-white"><div class="text-center"><i data-lucide="cloud-sun" class="w-14 h-14 mx-auto"></i><p class="mt-3 text-xs uppercase tracking-[0.25em] text-white/85">Weather forecast</p></div><div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md rounded-full p-2.5 text-[#121212]"><i data-lucide="arrow-up-right" class="w-4 h-4"></i></div></div>
+          <div class="p-6 flex flex-col justify-between flex-grow"><div><div class="flex items-center justify-between text-xs text-[#8E8C89] font-mono mb-2"><span>JavaScript · API</span><span>Web app</span></div><h3 class="font-display text-xl font-bold text-[#121212] mb-3 group-hover:text-[#FF7A00] transition">Skyline Weather</h3><p class="text-sm text-[#66635F] line-clamp-2 mb-4 leading-relaxed">Current weather, hourly outlook, five-day forecast, and a Celsius/Fahrenheit switch.</p></div><div class="flex flex-wrap gap-1.5 pt-4 border-t border-black/5"><span class="text-[11px] font-medium bg-[#F3EFEA] text-[#4A4846] px-2.5 py-1 rounded-md">HTML</span><span class="text-[11px] font-medium bg-[#F3EFEA] text-[#4A4846] px-2.5 py-1 rounded-md">CSS</span><span class="text-[11px] font-medium bg-[#F3EFEA] text-[#4A4846] px-2.5 py-1 rounded-md">OpenWeatherMap</span></div></div>
+        </article>
+        <article class="project-card group cursor-pointer" data-category="app" onclick="openProjectModal('weatherdashboard')">
+          <div class="project-image-wrap grid place-items-center bg-gradient-to-br from-[#24204a] via-[#5c56a1] to-[#b8a4ef] text-white"><div class="text-center"><i data-lucide="cloud" class="w-14 h-14 mx-auto"></i><p class="mt-3 text-xs uppercase tracking-[0.25em] text-white/85">SkyCast</p></div><div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md rounded-full p-2.5 text-[#121212]"><i data-lucide="arrow-up-right" class="w-4 h-4"></i></div></div>
+          <div class="p-6 flex flex-col justify-between flex-grow"><div><div class="flex items-center justify-between text-xs text-[#8E8C89] font-mono mb-2"><span>JavaScript · API</span><span>Web app</span></div><h3 class="font-display text-xl font-bold text-[#121212] mb-3 group-hover:text-[#FF7A00] transition">Weather Dashboard</h3><p class="text-sm text-[#66635F] line-clamp-2 mb-4 leading-relaxed">A city-search weather dashboard with recent searches, current conditions, and a five-day forecast.</p></div><div class="flex flex-wrap gap-1.5 pt-4 border-t border-black/5"><span class="text-[11px] font-medium bg-[#F3EFEA] text-[#4A4846] px-2.5 py-1 rounded-md">HTML</span><span class="text-[11px] font-medium bg-[#F3EFEA] text-[#4A4846] px-2.5 py-1 rounded-md">CSS</span><span class="text-[11px] font-medium bg-[#F3EFEA] text-[#4A4846] px-2.5 py-1 rounded-md">OpenWeatherMap</span></div></div>
+        </article>
+        <article class="project-card group cursor-pointer" data-category="app" onclick="openProjectModal('currency')">
+          <div class="project-image-wrap grid place-items-center bg-gradient-to-br from-[#16443c] via-[#3c9470] to-[#c6d784] text-white"><div class="text-center"><i data-lucide="arrow-left-right" class="w-14 h-14 mx-auto"></i><p class="mt-3 text-xs uppercase tracking-[0.25em] text-white/85">RateXchange</p></div><div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md rounded-full p-2.5 text-[#121212]"><i data-lucide="arrow-up-right" class="w-4 h-4"></i></div></div>
+          <div class="p-6 flex flex-col justify-between flex-grow"><div><div class="flex items-center justify-between text-xs text-[#8E8C89] font-mono mb-2"><span>JavaScript · Chart.js</span><span>Web app</span></div><h3 class="font-display text-xl font-bold text-[#121212] mb-3 group-hover:text-[#FF7A00] transition">Fiat Currency Converter</h3><p class="text-sm text-[#66635F] line-clamp-2 mb-4 leading-relaxed">A converter for 11 major currencies with a swap control and a chart showing a simulated seven-day trend.</p></div><div class="flex flex-wrap gap-1.5 pt-4 border-t border-black/5"><span class="text-[11px] font-medium bg-[#F3EFEA] text-[#4A4846] px-2.5 py-1 rounded-md">JavaScript</span><span class="text-[11px] font-medium bg-[#F3EFEA] text-[#4A4846] px-2.5 py-1 rounded-md">Chart.js</span></div></div>
+        </article>
+        <article class="project-card group cursor-pointer" data-category="app" onclick="openProjectModal('todo')">
+          <div class="project-image-wrap grid place-items-center bg-gradient-to-br from-[#493326] via-[#a56546] to-[#e0bd8c] text-white"><div class="text-center"><i data-lucide="list-checks" class="w-14 h-14 mx-auto"></i><p class="mt-3 text-xs uppercase tracking-[0.25em] text-white/85">Personal dashboard</p></div><div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md rounded-full p-2.5 text-[#121212]"><i data-lucide="arrow-up-right" class="w-4 h-4"></i></div></div>
+          <div class="p-6 flex flex-col justify-between flex-grow"><div><div class="flex items-center justify-between text-xs text-[#8E8C89] font-mono mb-2"><span>JavaScript</span><span>Web app</span></div><h3 class="font-display text-xl font-bold text-[#121212] mb-3 group-hover:text-[#FF7A00] transition">Smart Todo Dashboard</h3><p class="text-sm text-[#66635F] line-clamp-2 mb-4 leading-relaxed">A to-do list for adding, completing, and deleting tasks, with browser storage to retain tasks after a refresh.</p></div><div class="flex flex-wrap gap-1.5 pt-4 border-t border-black/5"><span class="text-[11px] font-medium bg-[#F3EFEA] text-[#4A4846] px-2.5 py-1 rounded-md">HTML</span><span class="text-[11px] font-medium bg-[#F3EFEA] text-[#4A4846] px-2.5 py-1 rounded-md">CSS</span><span class="text-[11px] font-medium bg-[#F3EFEA] text-[#4A4846] px-2.5 py-1 rounded-md">Local storage</span></div></div>
+        </article>
+      </div>
+      <div class="mt-10 text-center"><a href="https://github.com/Fransixgram" target="_blank" rel="noreferrer" class="btn-outline"><span>More projects on GitHub</span><i data-lucide="arrow-up-right" class="w-4 h-4"></i></a></div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+      4. SERVICES / "I CAN HELP YOU WITH" SECTION
+     ========================================================================= -->
+  <section id="services" class="py-20 md:py-32 bg-[#F3EFEA] relative">
+    <div class="container mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-xs font-mono font-bold tracking-widest text-[#FF7A00] uppercase mb-2 block">What I work with</span>
+        <h2 class="display-section-title">FULL-STACK CAPABILITIES</h2>
+        <p class="text-[#66635F] mt-3 text-sm md:text-base">My work spans browser interfaces, server-side features, data storage, and mobile application development.</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <article class="glass-card p-8 flex flex-col justify-between h-full group hover:border-[#FF7A00]/40"><div><span class="service-number group-hover:text-[#FF7A00] transition duration-300">01</span><h3 class="font-display text-xl font-bold text-[#121212] mt-6 mb-3">Web interfaces</h3><p class="text-sm text-[#66635F] leading-relaxed mb-6">Responsive web applications and storefronts with clear product flows and interactive interfaces.</p></div><div class="space-y-2 pt-4 border-t border-black/5"><div class="flex items-center gap-2 text-xs font-medium text-[#4A4846]"><i class="w-1.5 h-1.5 rounded-full bg-[#FF7A00]"></i>React · TypeScript</div><div class="flex items-center gap-2 text-xs font-medium text-[#4A4846]"><i class="w-1.5 h-1.5 rounded-full bg-[#FF7A00]"></i>HTML · CSS · Tailwind</div></div></article>
+        <article class="glass-card p-8 flex flex-col justify-between h-full group hover:border-[#FF7A00]/40"><div><span class="service-number group-hover:text-[#FF7A00] transition duration-300">02</span><h3 class="font-display text-xl font-bold text-[#121212] mt-6 mb-3">APIs & back ends</h3><p class="text-sm text-[#66635F] leading-relaxed mb-6">Server-side features and REST APIs, including authentication, product management, and integrations.</p></div><div class="space-y-2 pt-4 border-t border-black/5"><div class="flex items-center gap-2 text-xs font-medium text-[#4A4846]"><i class="w-1.5 h-1.5 rounded-full bg-[#FF7A00]"></i>Node.js · Express · NestJS</div><div class="flex items-center gap-2 text-xs font-medium text-[#4A4846]"><i class="w-1.5 h-1.5 rounded-full bg-[#FF7A00]"></i>PHP · Laravel</div></div></article>
+        <article class="glass-card p-8 flex flex-col justify-between h-full group hover:border-[#FF7A00]/40"><div><span class="service-number group-hover:text-[#FF7A00] transition duration-300">03</span><h3 class="font-display text-xl font-bold text-[#121212] mt-6 mb-3">Mobile applications</h3><p class="text-sm text-[#66635F] leading-relaxed mb-6">Mobile app development with React Native and Expo for shared JavaScript and TypeScript workflows.</p></div><div class="space-y-2 pt-4 border-t border-black/5"><div class="flex items-center gap-2 text-xs font-medium text-[#4A4846]"><i class="w-1.5 h-1.5 rounded-full bg-[#FF7A00]"></i>React Native</div><div class="flex items-center gap-2 text-xs font-medium text-[#4A4846]"><i class="w-1.5 h-1.5 rounded-full bg-[#FF7A00]"></i>Expo</div></div></article>
+        <article class="glass-card p-8 flex flex-col justify-between h-full group hover:border-[#FF7A00]/40"><div><span class="service-number group-hover:text-[#FF7A00] transition duration-300">04</span><h3 class="font-display text-xl font-bold text-[#121212] mt-6 mb-3">Data & integrations</h3><p class="text-sm text-[#66635F] leading-relaxed mb-6">Database-backed features, payment flows, and cloud services used across commerce and application projects.</p></div><div class="space-y-2 pt-4 border-t border-black/5"><div class="flex items-center gap-2 text-xs font-medium text-[#4A4846]"><i class="w-1.5 h-1.5 rounded-full bg-[#FF7A00]"></i>MongoDB · MySQL · PostgreSQL</div><div class="flex items-center gap-2 text-xs font-medium text-[#4A4846]"><i class="w-1.5 h-1.5 rounded-full bg-[#FF7A00]"></i>AWS · Redis · Paystack</div></div></article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+      5. ABOUT & VISION ("TURNING MY VISION")
+     ========================================================================= -->
+  <section id="about" class="py-20 md:py-32 relative bg-[#FAF8F5]">
+    <div class="container mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-5">
+          <span class="text-xs font-mono font-bold tracking-widest text-[#FF7A00] uppercase mb-2 block">About me</span>
+          <h2 class="display-section-title mb-6">BUILDING USEFUL<br />DIGITAL PRODUCTS</h2>
+          <p class="text-[#5A5856] text-base md:text-lg leading-relaxed mb-5">I am a full-stack software engineer working across JavaScript, TypeScript, and PHP. I build web and mobile applications, from customer-facing interfaces to APIs and data-backed features.</p>
+          <p class="text-[#5A5856] text-base leading-relaxed mb-8">My projects include commerce experiences, a store API, and smaller browser applications. I also bring customer-facing product and sales experience from my work at Bejork Furniture Store.</p>
+          <div class="grid grid-cols-2 gap-8 py-6 border-y border-black/10 mb-8">
+            <div><div class="font-display text-3xl md:text-4xl font-extrabold text-[#121212]">7</div><div class="text-xs md:text-sm font-medium text-[#6B6864] mt-1">Projects showcased</div></div>
+              <div><div class="font-display text-3xl md:text-4xl font-extrabold text-[#121212]">21</div><div class="text-xs md:text-sm font-medium text-[#6B6864] mt-1">Technologies listed</div></div>
+          </div>
+          <div class="flex flex-wrap gap-4"><a href="#contact" class="btn-primary"><span>Get in touch</span><i data-lucide="arrow-right" class="w-4 h-4"></i></a><a href="./francis-chidubem-cv.pdf" download class="btn-outline"><span>Download CV</span><i data-lucide="download" class="w-4 h-4"></i></a></div>
+        </div>
+          <div class="lg:col-span-7">
+            <div class="rounded-3xl overflow-hidden border border-black/10 shadow-xl bg-[#E8E0D5]">
+              <img src="./my-work-picture.png" alt="Chidubem Francis working at his computer" class="w-full aspect-[4/5] object-cover object-center" loading="lazy" />
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+      6. EXPERIENCE & SKILLS SECTION (Interactive Table matching reference)
+     ========================================================================= -->
+  <section id="experience" class="py-20 md:py-32 bg-[#F3EFEA] border-t border-black/5">
+    <div class="container mx-auto">
+      <div class="mb-12"><span class="text-xs font-mono font-bold tracking-widest text-[#FF7A00] uppercase mb-2 block">Experience & collaboration</span><h2 class="display-section-title">WORKING WITH PEOPLE & PRODUCTS</h2></div>
+      <div class="bg-white rounded-3xl p-4 md:p-8 border border-black/5 shadow-sm space-y-2">
+        <article class="experience-row group"><div class="font-mono text-sm font-bold text-[#8E8C89] group-hover:text-[#FF7A00] transition">Retail</div><div><h3 class="font-display text-lg md:text-xl font-bold text-[#121212] mb-1">Product Manager & Sales Representative</h3><p class="text-xs md:text-sm font-semibold text-[#5A5856] mb-1">Bejork Furniture Store</p><p class="text-xs md:text-sm text-[#66635F] leading-relaxed">I help customers compare options, understand product features, and make informed choices. This work has strengthened my listening, communication, and customer-focused product thinking.</p></div><div class="flex flex-wrap gap-2 mt-3 md:mt-0 justify-start md:justify-end"><span class="text-xs font-semibold px-3 py-1.5 rounded-full bg-[#FAF8F5] border border-black/5 text-[#333]">Customer needs</span><span class="text-xs font-semibold px-3 py-1.5 rounded-full bg-[#FAF8F5] border border-black/5 text-[#333]">Product guidance</span><span class="text-xs font-semibold px-3 py-1.5 rounded-full bg-[#FAF8F5] border border-black/5 text-[#333]">Communication</span></div></article>
+        <article class="experience-row group"><div class="font-mono text-sm font-bold text-[#8E8C89] group-hover:text-[#FF7A00] transition">Software</div><div><h3 class="font-display text-lg md:text-xl font-bold text-[#121212] mb-1">Collaborative software projects</h3><p class="text-xs md:text-sm text-[#66635F] leading-relaxed">I work with other developers to break down shared ideas, coordinate implementation, share progress, and bring features together into a working solution.</p></div><div class="flex flex-wrap gap-2 mt-3 md:mt-0 justify-start md:justify-end"><span class="text-xs font-semibold px-3 py-1.5 rounded-full bg-[#FAF8F5] border border-black/5 text-[#333]">Planning</span><span class="text-xs font-semibold px-3 py-1.5 rounded-full bg-[#FAF8F5] border border-black/5 text-[#333]">Implementation</span><span class="text-xs font-semibold px-3 py-1.5 rounded-full bg-[#FAF8F5] border border-black/5 text-[#333]">Team communication</span></div></article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+      7. MY WORKSTATION (Gallery Grid matching reference)
+     ========================================================================= -->
+  <section id="notes" class="py-20 md:py-32 bg-[#FAF8F5]">
+    <div class="container mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4"><div><span class="text-xs font-mono font-bold tracking-widest text-[#FF7A00] uppercase mb-2 block">Notes from building</span><h2 class="display-section-title">ENGINEERING NOTES</h2></div><p class="text-[#66635F] text-sm max-w-md">A few lessons and decisions from the applications featured in this portfolio.</p></div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <article class="rounded-2xl overflow-hidden border border-black/10 bg-white shadow-sm hover:shadow-xl transition"><div class="aspect-square grid place-items-center bg-gradient-to-br from-[#3a2516] to-[#ff7a00] text-white"><i data-lucide="shopping-bag" class="w-14 h-14"></i></div><div class="p-5"><span class="text-[10px] font-mono uppercase tracking-widest text-[#FF7A00]">Cosmo Mobile Spares</span><h3 class="font-display font-bold text-base text-[#121212] my-2">Design around the buying journey</h3><p class="text-xs text-[#66635F] leading-relaxed">Category browsing, product pages, cart, and delivery choices should help a shopper understand the next step toward checkout.</p></div></article>
+        <article class="rounded-2xl overflow-hidden border border-black/10 bg-white shadow-sm hover:shadow-xl transition"><div class="aspect-square grid place-items-center bg-gradient-to-br from-[#241c16] to-[#b85e27] text-white"><i data-lucide="layers-3" class="w-14 h-14"></i></div><div class="p-5"><span class="text-[10px] font-mono uppercase tracking-widest text-[#FF7A00]">Storefronts</span><h3 class="font-display font-bold text-base text-[#121212] my-2">Keep product details consistent</h3><p class="text-xs text-[#66635F] leading-relaxed">Category lists, detail pages, carts, and admin tools work better when they use the same underlying product information.</p></div></article>
+        <article class="rounded-2xl overflow-hidden border border-black/10 bg-white shadow-sm hover:shadow-xl transition"><div class="aspect-square grid place-items-center bg-gradient-to-br from-[#18212a] to-[#58758a] text-white"><i data-lucide="route" class="w-14 h-14"></i></div><div class="p-5"><span class="text-[10px] font-mono uppercase tracking-widest text-[#FF7A00]">Node-Store</span><h3 class="font-display font-bold text-base text-[#121212] my-2">Give API routes clear roles</h3><p class="text-xs text-[#66635F] leading-relaxed">Separating authentication, user, admin, and product routes makes each request path easier to follow.</p></div></article>
+        <article class="rounded-2xl overflow-hidden border border-black/10 bg-white shadow-sm hover:shadow-xl transition"><div class="aspect-square grid place-items-center bg-gradient-to-br from-[#3b271e] to-[#c58b4f] text-white"><i data-lucide="database" class="w-14 h-14"></i></div><div class="p-5"><span class="text-[10px] font-mono uppercase tracking-widest text-[#FF7A00]">Smart Todo Dashboard</span><h3 class="font-display font-bold text-base text-[#121212] my-2">Use browser storage for small tools</h3><p class="text-xs text-[#66635F] leading-relaxed">Local storage keeps tasks after refresh for one browser, while making clear it does not sync across user accounts or devices.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+      8. CLIENT TESTIMONIALS
+     ========================================================================= -->
+  <!-- =========================================================================
+      9. FOOTER & CALL TO ACTION
+     ========================================================================= -->
+  <footer id="contact" class="py-20 md:py-28 bg-[#121212] text-white relative overflow-hidden">
+    <div class="container mx-auto relative z-10"><div class="max-w-3xl mx-auto text-center">
+      <span class="text-xs font-mono font-bold tracking-widest text-[#FF7A00] uppercase mb-4 inline-block">Contact</span>
+      <h2 class="font-display text-3xl sm:text-5xl font-extrabold tracking-tight mb-6">LET’S BUILD SOMETHING USEFUL.</h2>
+      <p class="text-gray-400 text-base md:text-lg mb-8 max-w-xl mx-auto">I’m Chidubem Francis, a full-stack software engineer based in Lagos, Nigeria. Reach out by email or connect with me on the platforms below.</p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+        <div id="copyEmailBox" class="flex items-center gap-3 bg-white/10 hover:bg-white/15 px-5 py-3.5 rounded-full border border-white/10 cursor-pointer transition group"><i data-lucide="mail" class="w-4 h-4 text-[#FF7A00]"></i><span class="font-mono text-sm tracking-wide text-white">isrems136@gmail.com</span><button id="copyBtnTag" type="button" class="text-xs bg-white/20 px-2.5 py-1 rounded-full text-white/80 group-hover:text-white">Copy</button></div>
+        <a href="mailto:isrems136@gmail.com" class="btn-accent"><span>Send an email</span><i data-lucide="send" class="w-4 h-4"></i></a>
+      </div>
+      <p class="text-sm text-gray-400 mb-8">Lagos, Nigeria · <a class="hover:text-white" href="tel:+2349065028231">+234 906 502 8231</a></p>
+      <div class="flex flex-wrap items-center justify-center gap-6 text-sm font-semibold text-gray-400 pb-12 border-b border-white/10">
+        <a href="https://www.linkedin.com/in/ikeagwu-chidubem-550924414" target="_blank" rel="noreferrer" class="hover:text-white transition">LinkedIn</a>
+        <a href="https://github.com/Fransixgram" target="_blank" rel="noreferrer" class="hover:text-white transition">GitHub</a>
+        <a href="https://www.facebook.com/fransixgram" target="_blank" rel="noreferrer" class="hover:text-white transition">Facebook</a>
+        <a href="https://www.x.com/Fransix007" target="_blank" rel="noreferrer" class="hover:text-white transition">X</a>
+      </div>
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-4"><span>© 2026 Chidubem Francis. All rights reserved.</span><a href="#home" class="hover:text-white transition">Back to top ↑</a></div>
+    </div></div>
+  </footer>
+
+
+  
+  <div id="projectModal" class="modal-backdrop hidden" onclick="closeProjectModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <div class="relative"><img id="modalProjectImg" src="" alt="" class="w-full aspect-video object-cover" /><div id="modalProjectPlaceholder" class="hidden aspect-video place-items-center bg-gradient-to-br from-[#24180f] via-[#4b2b14] to-[#ff7a00] text-white"><span id="modalProjectPlaceholderLabel" class="font-mono text-3xl font-bold tracking-[0.2em]"></span></div><button onclick="closeProjectModal()" class="absolute top-4 right-4 bg-black/70 hover:bg-black text-white p-2 rounded-full backdrop-blur-md transition" aria-label="Close project details"><i data-lucide="x" class="w-5 h-5"></i></button><div id="modalProjectBadge" class="absolute bottom-4 left-4 bg-black/60 backdrop-blur-md text-white text-xs px-3 py-1 rounded-full"></div></div>
+      <div class="p-8"><span id="modalProjectCategory" class="text-xs font-mono font-bold text-[#FF7A00] uppercase tracking-wider block mb-1"></span><h3 id="modalProjectTitle" class="font-display text-2xl md:text-3xl font-extrabold text-[#121212] mb-4"></h3><p id="modalProjectDesc" class="text-sm md:text-base text-[#5A5856] leading-relaxed mb-6"></p><div id="modalProjectTech" class="flex flex-wrap gap-2 mb-6"></div><div id="modalProjectSnippet" class="hidden mb-6 overflow-hidden rounded-xl bg-[#171614] text-white"><div class="flex items-center justify-between border-b border-white/10 px-4 py-3"><span class="text-[10px] font-mono font-bold tracking-widest text-[#FF7A00]">LATEST: EMAIL RECOVERY</span><span class="text-[10px] font-mono text-white/50">Supabase Edge Function</span></div><pre class="overflow-x-auto p-4 text-xs leading-relaxed text-[#e8e2da]"><code id="modalProjectSnippetCode"></code></pre></div><a id="modalProjectRepo" href="#" target="_blank" rel="noreferrer" class="btn-accent"><span>View source on GitHub</span><i data-lucide="arrow-up-right" class="w-4 h-4"></i></a></div>
+    </div>
+  </div>
+  <script>
+    if (window.lucide) lucide.createIcons();
+    let soundEnabled = true;
+    function playAudio(type = 'click') {
+      if (!soundEnabled) return;
+      try {
+        const context = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = context.createOscillator();
+        const gain = context.createGain();
+        oscillator.connect(gain); gain.connect(context.destination);
+        const duration = type === 'pop' ? 0.08 : 0.04;
+        oscillator.frequency.setValueAtTime(type === 'pop' ? 450 : 800, context.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(type === 'pop' ? 900 : 300, context.currentTime + duration);
+        gain.gain.setValueAtTime(0.04, context.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, context.currentTime + duration);
+        oscillator.start(); oscillator.stop(context.currentTime + duration);
+      } catch {}
+    }
+    const soundToggleBtn = document.getElementById('soundToggleBtn');
+    if (soundToggleBtn) soundToggleBtn.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      soundToggleBtn.innerHTML = soundEnabled ? '<i data-lucide="volume-2" class="w-4 h-4 text-[#FF7A00]"></i>' : '<i data-lucide="volume-x" class="w-4 h-4 text-gray-400"></i>';
+      if (window.lucide) lucide.createIcons();
+      if (soundEnabled) playAudio('pop');
+    });
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenuDrawer = document.getElementById('mobileMenuDrawer');
+    if (mobileMenuBtn && mobileMenuDrawer) {
+      mobileMenuBtn.addEventListener('click', () => { mobileMenuDrawer.classList.toggle('hidden'); playAudio(); });
+      document.querySelectorAll('.mobile-nav-link').forEach(link => link.addEventListener('click', () => mobileMenuDrawer.classList.add('hidden')));
+    }
+    const projectData = {
+      cosmo: { title: 'Cosmo Mobile Spares', category: 'E-commerce storefront', badge: 'React · TypeScript', image: './projects/cosmo-mobile-spares.jpg', desc: 'A phone parts storefront with product browsing, cart, checkout, delivery options, and admin tools. The latest update adds a Supabase recovery function that retries missing or failed order confirmation emails for paid orders, while an atomic claim prevents duplicate sends.', repo: 'https://github.com/Fransixgram/Cosmo-Mobile-Spares-LTD', tech: ['React', 'TypeScript', 'Supabase Edge Functions', 'Paystack', 'Resend'], snippet: 'const { data: claimResult, error: claimError } = await supabase.rpc(\n  "claim_order_confirmation_email",\n  { p_order_id: order.id },\n);\n\nif (claimError) throw claimError;\n\nif (claimResult !== true) {\n  skipped++;\n  continue;\n}\n\nclaimed = true;' },
+      sirken: { title: 'Sir Ken Eyewear', category: 'E-commerce storefront', badge: 'React · Tailwind CSS', image: './projects/sir-ken-eyewear.jpg', desc: 'A responsive eyewear storefront with a product catalogue, cart drawer, about and testimonial sections, and an order form.', repo: 'https://github.com/Fransixgram/SIR-KEN-EYEWEAR', tech: ['React', 'Tailwind CSS', 'Vite', 'lucide-react'] },
+      nodestore: { title: 'Node-Store', category: 'Back-end API', badge: 'Node.js · Express', image: '', desc: 'A Node.js back-end API for a store, with authentication, user, admin, and product routes, image uploads, and email templates for account verification and password reset.', repo: 'https://github.com/Fransixgram/Node-Store', tech: ['Node.js', 'Express', 'MongoDB', 'JWT', 'Cloudinary', 'Nodemailer'] },
+      skyline: { title: 'Skyline Weather', category: 'Weather web app', badge: 'JavaScript · OpenWeatherMap', image: '', desc: 'A weather app with current conditions, an hourly outlook, a five-day forecast, and a switch between Celsius and Fahrenheit.', repo: 'https://github.com/Fransixgram/skyline-weather', tech: ['HTML', 'CSS', 'JavaScript', 'OpenWeatherMap API'] },
+      weatherdashboard: { title: 'Weather Dashboard', category: 'Weather web app', badge: 'SkyCast', image: '', desc: 'A weather dashboard with city search, recent searches, current conditions, and a five-day forecast.', repo: 'https://github.com/Fransixgram/weather-dasboard', tech: ['HTML', 'CSS', 'JavaScript', 'OpenWeatherMap API'] },
+      currency: { title: 'Fiat Currency Converter', category: 'Currency web app', badge: 'RateXchange', image: '', desc: 'A converter for 11 major currencies with a swap button. Its chart shows a simulated seven-day trend rather than historical exchange data.', repo: 'https://github.com/Fransixgram/fiat-currency-converter', tech: ['HTML', 'CSS', 'JavaScript', 'Chart.js'] },
+      todo: { title: 'Smart Todo Dashboard', category: 'Productivity web app', badge: 'JavaScript', image: '', desc: 'A to-do list for adding, completing, and deleting tasks. Tasks are saved in the browser and remain after a refresh.', repo: 'https://github.com/Fransixgram/smart-todo-dashboard', tech: ['HTML', 'CSS', 'JavaScript', 'Local storage'] }
+    };
+    function openProjectModal(id) {
+      const item = projectData[id]; if (!item) return;
+      const image = document.getElementById('modalProjectImg'); image.src = item.image; image.alt = item.image ? item.title : '';
+      image.classList.toggle('hidden', !item.image);
+      const placeholder = document.getElementById('modalProjectPlaceholder');
+      placeholder.classList.toggle('hidden', Boolean(item.image));
+      placeholder.classList.toggle('grid', !item.image);
+      document.getElementById('modalProjectPlaceholderLabel').innerText = item.badge;
+      document.getElementById('modalProjectBadge').innerText = item.badge;
+      document.getElementById('modalProjectCategory').innerText = item.category;
+      document.getElementById('modalProjectTitle').innerText = item.title;
+      document.getElementById('modalProjectDesc').innerText = item.desc;
+      const snippet = document.getElementById('modalProjectSnippet');
+      snippet.classList.toggle('hidden', !item.snippet);
+      document.getElementById('modalProjectSnippetCode').textContent = item.snippet || '';
+      document.getElementById('modalProjectRepo').href = item.repo;
+      document.getElementById('modalProjectTech').innerHTML = item.tech.map(tag => '<span class="text-[11px] font-medium bg-[#F3EFEA] text-[#4A4846] px-2.5 py-1 rounded-md">' + tag + '</span>').join('');
+      document.getElementById('projectModal').classList.remove('hidden');
+      playAudio('pop');
+      if (window.lucide) lucide.createIcons();
+    }
+    function closeProjectModal(event) { if (!event || event.target === document.getElementById('projectModal')) document.getElementById('projectModal').classList.add('hidden'); }
+    document.querySelectorAll('.project-filter-btn').forEach(button => button.addEventListener('click', () => {
+      const filter = button.dataset.filter;
+      document.querySelectorAll('.project-filter-btn').forEach(b => b.className = 'project-filter-btn px-4 py-2 rounded-full text-xs md:text-sm font-semibold transition bg-white/80 text-[#5A5856] hover:bg-white border border-black/5');
+      button.className = 'project-filter-btn px-4 py-2 rounded-full text-xs md:text-sm font-semibold transition bg-[#121212] text-white shadow-md';
+      document.querySelectorAll('.project-card').forEach(card => card.classList.toggle('hidden', filter !== 'all' && card.dataset.category !== filter));
+      playAudio();
+    }));
+    const copyEmailBox = document.getElementById('copyEmailBox');
+    const copyBtnTag = document.getElementById('copyBtnTag');
+    if (copyEmailBox && copyBtnTag) copyEmailBox.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText('isrems136@gmail.com'); copyBtnTag.innerText = 'Copied'; setTimeout(() => copyBtnTag.innerText = 'Copy', 1800); } catch { copyBtnTag.innerText = 'Select email'; }
+    });
+    document.addEventListener('keydown', event => { if (event.key === 'Escape') document.getElementById('projectModal')?.classList.add('hidden'); });
+  </script></body>
 </html>
+
